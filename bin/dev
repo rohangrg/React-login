@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+# Run the Rails server
+system("rails server")
+
+# Run the webpack-dev-server for React
+system("bin/webpack-dev-server")
