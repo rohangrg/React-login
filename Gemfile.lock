@@ -261,6 +261,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   jsonapi-serializer
+  mail
   mysql2 (~> 0.5)
   puma (~> 5.0)
   rails (~> 7.0.6)

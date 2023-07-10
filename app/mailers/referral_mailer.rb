@@ -1,6 +1,9 @@
-class ReferralMailer < ApplicationMailer
-  def send_referral(referral)
+class ReferralMailer < ActionMailer::Base
+  def referral_email(referral)
     @referral = referral
-    mail(to: referral.email, subject: 'Invitation to Sign Up')
+    mail(
+      from: 'rohan.test1998@gmail.com',
+      to: referral.email,
+      subject: 'Invitation to Sign Up')
   end
 end
