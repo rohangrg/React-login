@@ -15,7 +15,7 @@ function SignupForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Implement signup logic here
+    console.log('Hello!');
   };
 
   return (
