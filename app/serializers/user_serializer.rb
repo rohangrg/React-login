@@ -4,6 +4,6 @@ class UserSerializer
   attributes :id, :email
 
   attributes :referrals do |user|
-    user.referrals.order(created_at: :asc)
+    user.referrals.order(created_at: :desc)
   end
 end

@@ -11,7 +11,7 @@ class ReferralsController < ApplicationController
     if @referral.save
       render json: { 
         message: 'Referral email sent successfully.',
-        all_referrals: ReferralSerializer.new(current_user.referrals.order(created_at: :desc))
+        data: { user: UserSerializer.new(current_user).serializable_hash[:data][:attributes] }
        }
     else
       render json: { message: 'Something went wrong!' }, status: :unprocessable_entity
