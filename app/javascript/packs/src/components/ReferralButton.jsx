@@ -53,15 +53,16 @@ const ReferralButton = ({setReferrals}) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{display: 'flex'}}>
       <TextField
-        label="Email"
+        label="Enter an email address for referral"
         value={inputValue}
         onChange={handleChange}
         variant="outlined"
         fullWidth
         error={!isValidEmail}
         helperText={!isValidEmail ? 'Invalid email' : ''}
+        style={{marginRight: '12px'}}
       />
       <Button type="submit" variant="contained" color="primary">
         Submit

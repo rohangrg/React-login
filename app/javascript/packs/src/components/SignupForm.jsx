@@ -4,6 +4,7 @@ import { Button, TextField, Typography, Container, Grid } from '@mui/material';
 const LoginForm = ({setShowLogin}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmationPassword, setConfirmationPassword] = useState('');
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -13,13 +14,17 @@ const LoginForm = ({setShowLogin}) => {
     setPassword(e.target.value);
   };
 
+  const handleConfirmationPasswordChange = (e) => {
+    setConfirmationPassword(e.target.value);
+  };
+
   const handleLoginSignup = () => {
-    setShowLogin(false)
+    setShowLogin(true)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:3000/login', {
+    fetch('http://localhost:3000/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -28,6 +33,7 @@ const LoginForm = ({setShowLogin}) => {
         "user": {
           "email": email,
           "password": password,
+          "password_confirmation": confirmationPassword
         }
       }),
     })
@@ -44,7 +50,7 @@ const LoginForm = ({setShowLogin}) => {
     })
     .then(data => {
       console.log(JSON.stringify(data.status.data.user))
-      localStorage.setItem('userData', JSON.stringify(data.status.data.user));
+      localStorage.setItem('userData', JSON.stringify(data.status.data?.user));
       location.reload();
     })
     .catch(error => {
@@ -55,7 +61,7 @@ const LoginForm = ({setShowLogin}) => {
   return (
     <Container maxWidth="xs">
       <Typography variant="h4" component="h1" align="center" gutterBottom>
-        Login
+        Sign up
       </Typography>
       <form onSubmit={handleSubmit}>
         <TextField
@@ -78,14 +84,24 @@ const LoginForm = ({setShowLogin}) => {
           margin="normal"
           required
         />
+        <TextField
+          label="Confirmation Password"
+          type="password"
+          value={confirmationPassword}
+          onChange={handleConfirmationPasswordChange}
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          required
+        />
         <Button type="submit" variant="contained" color="primary" fullWidth>
-          Login
+          Sign up
         </Button>
 
         <Grid container justifyContent="flex-end">
           <Grid item>
             <Button onClick={handleLoginSignup}>
-              Sign Up
+              Login
             </Button>
           </Grid>
         </Grid>
