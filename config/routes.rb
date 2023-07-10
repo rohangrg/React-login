@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "statics#main"
+
   Rails.application.routes.draw do
     devise_for :users, path: '', path_names: {
       sign_in: 'login',
@@ -14,4 +15,6 @@ Rails.application.routes.draw do
       registrations: 'users/registrations'
     }
   end
+
+  resources :referrals
 end
