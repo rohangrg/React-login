@@ -103,7 +103,7 @@ const LoginForm = ({setShowLogin}) => {
         </Grid>
       </form>
       {
-        showAlert && (<AlertMessage setShowAlert={setShowAlert} message={apiResponse.error} severity="error" />)
+        showAlert && (<AlertMessage setShowAlert={setShowAlert} message={apiResponse.message || apiResponse.error} severity="error" />)
       }
 
     </Container>
