@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
+import AlertMessage from './AlertMessage';
 
 const ReferralButton = ({setReferrals}) => {
   const [inputValue, setInputValue] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
+  const [apiResponse, setApiResponse] = useState(null);
+
+  const showAlertMessage = (data) => {
+    setApiResponse(data);
+    setShowAlert(true);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,9 +39,12 @@ const ReferralButton = ({setReferrals}) => {
       return response.json();
     })
     .then(data => {
-      console.log('Received, data:', data?.data?.user);
-      localStorage.setItem('userData', JSON.stringify(data?.data?.user || ''));
-      setReferrals(data.data.user.referrals);
+      if(data.error) {
+        showAlertMessage(data);
+      } else {
+        localStorage.setItem('userData', JSON.stringify(data?.data?.user || ''));
+        setReferrals(data.data.user.referrals);
+      }
     })
     .catch(error => {
       console.error('Error:', error);
@@ -63,10 +74,16 @@ const ReferralButton = ({setReferrals}) => {
         error={!isValidEmail}
         helperText={!isValidEmail ? 'Invalid email' : ''}
         style={{marginRight: '12px'}}
+        type="email"
+        required
       />
       <Button type="submit" variant="contained" color="primary">
         Submit
       </Button>
+
+      {
+        showAlert && (<AlertMessage setShowAlert={setShowAlert} message={apiResponse.error} severity="error" />)
+      }
     </form>
   );
 };

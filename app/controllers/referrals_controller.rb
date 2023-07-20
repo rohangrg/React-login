@@ -14,7 +14,7 @@ class ReferralsController < ApplicationController
         data: { user: UserSerializer.new(current_user).serializable_hash[:data][:attributes] }
        }
     else
-      render json: { message: 'Something went wrong!' }, status: :unprocessable_entity
+      render json: { error: @referral.errors.full_messages.to_sentence }, status: :unprocessable_entity
     end
   end
 
