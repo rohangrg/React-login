@@ -54,8 +54,7 @@ const LoginForm = ({setShowLogin}) => {
       if (data.error) {
         showAlertMessage(data);
       } else {
-        console.log(JSON.stringify(data?.status?.data?.user))
-        localStorage.setItem('userData', JSON.stringify(data?.status?.data?.user || ''));
+        localStorage.setItem('userData', JSON.stringify(data?.data?.user || ''));
         location.reload();
       }
     })

@@ -31,8 +31,8 @@ const ReferralButton = ({setReferrals}) => {
       return response.json();
     })
     .then(data => {
-      console.log('Received, data:', data.data.user.referrals);
-      localStorage.setItem('referrals', data.data.user.referrals);
+      console.log('Received, data:', data?.data?.user);
+      localStorage.setItem('userData', JSON.stringify(data?.data?.user || ''));
       setReferrals(data.data.user.referrals);
     })
     .catch(error => {

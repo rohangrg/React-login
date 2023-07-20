@@ -15,7 +15,10 @@ class Users::SessionsController < Devise::SessionsController
 
     if resource
       sign_in(resource_name, resource)
-      render json: { message: 'Signed in successfully.' }, status: :ok
+      render json: { 
+        message: 'Signed in successfully.',
+        data: { user: UserSerializer.new(current_user).serializable_hash[:data][:attributes] }
+      }, status: :ok
     else
       render json: { error: 'Invalid Email or password.' }, status: :unauthorized
     end
@@ -32,15 +35,6 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
-
-  def respond_with(current_user, _opts = {})
-    render json: {
-      status: { 
-        code: 200, message: 'Logged in successfully.',
-        data: { user: UserSerializer.new(current_user).serializable_hash[:data][:attributes] }
-      }
-    }, status: :ok
-  end
   
   def respond_to_on_destroy
     if request.headers['Authorization'].present?
