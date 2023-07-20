@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Button, TextField, Typography, Container, Grid } from '@mui/material';
+import AlertMessage from './AlertMessage';
 
 const LoginForm = ({setShowLogin}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
+  const [apiResponse, setApiResponse] = useState(null);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -16,6 +19,11 @@ const LoginForm = ({setShowLogin}) => {
   const handleLoginSignup = () => {
     setShowLogin(false)
   }
+
+  const showAlertMessage = (data) => {
+    setApiResponse(data);
+    setShowAlert(true);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,12 +51,16 @@ const LoginForm = ({setShowLogin}) => {
       return response.json();
     })
     .then(data => {
-      console.log(JSON.stringify(data.status.data.user))
-      localStorage.setItem('userData', JSON.stringify(data.status.data.user));
-      location.reload();
+      if (data.error) {
+        showAlertMessage(data);
+      } else {
+        console.log(JSON.stringify(data?.status?.data?.user))
+        localStorage.setItem('userData', JSON.stringify(data?.status?.data?.user || ''));
+        location.reload();
+      }
     })
     .catch(error => {
-      console.error('Error:', error);
+      console.log('Error:', error);
     });
   };
 
@@ -90,6 +102,10 @@ const LoginForm = ({setShowLogin}) => {
           </Grid>
         </Grid>
       </form>
+      {
+        showAlert && (<AlertMessage setShowAlert={setShowAlert} message={apiResponse.error} severity="error" />)
+      }
+
     </Container>
   );
 };

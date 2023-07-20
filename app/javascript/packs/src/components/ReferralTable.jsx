@@ -2,7 +2,7 @@ import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
 const ReferralTable = ({referrals=[]}) => {
-  referrals = (referrals.length != 0 ? referrals : JSON.parse(localStorage.getItem('userData'))?.referrals) || [];
+  referrals = ((!!localStorage.getItem('userData') && referrals.length != 0) ? referrals : JSON.parse(localStorage.getItem('userData'))?.referrals) || [];
   return (
     <TableContainer component={Paper}>
       <Table>
