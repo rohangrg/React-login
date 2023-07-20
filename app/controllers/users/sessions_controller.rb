@@ -43,6 +43,7 @@ class Users::SessionsController < Devise::SessionsController
     end
     
     if current_user
+      reset_session
       render json: {
         status: 200,
         message: 'Logged out successfully.'
