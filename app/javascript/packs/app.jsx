@@ -6,8 +6,27 @@ import ReferralButton from './src/components/ReferralButton';
 import { Button } from '@mui/material';
 
 function handleLogoutButton(setLogoutUser) {
-  localStorage.clear();
-  setLogoutUser(true);
+  fetch('http://localhost:3000/logout', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': localStorage.getItem('authorization'),
+      }
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      if(data.error) {
+        showAlertMessage(data);
+      } else {
+        localStorage.clear();
+        setLogoutUser(true);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
 }
 
 function App() {

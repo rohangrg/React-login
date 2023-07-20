@@ -5,7 +5,7 @@ class Referral < ApplicationRecord
   after_commit :send_referral_email, on: :create
 
   def send_referral_email
-    ReferralMailer.referral_email(self).deliver_now
+    ReferralMailer.referral_email(self).deliver_later
   end
 
   def check_for_other_referral
