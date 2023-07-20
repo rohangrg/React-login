@@ -26,7 +26,8 @@ const LoginForm = ({setShowLogin}) => {
     setShowLogin(true)
   }
 
-  const showAlertMessage = (data) => {
+  const showAlertMessage = (data, severity='error') => {
+    data.severity = severity;
     setApiResponse(data);
     setShowAlert(true);
   };
@@ -61,7 +62,10 @@ const LoginForm = ({setShowLogin}) => {
       if (data.error) {
         showAlertMessage(data);
       } else {
-        handleLoginSignup();
+        showAlertMessage(data.status, 'success');
+        setTimeout(function(){ 
+          handleLoginSignup();
+        }, 2000);
       }
     })
     .catch(error => {
@@ -118,7 +122,7 @@ const LoginForm = ({setShowLogin}) => {
         </Grid>
       </form>
       {
-        showAlert && (<AlertMessage setShowAlert={setShowAlert} message={apiResponse.error} severity="error" />)
+        showAlert && (<AlertMessage setShowAlert={setShowAlert} message={apiResponse.message} severity={apiResponse.severity} />)
       }
     </Container>
   );

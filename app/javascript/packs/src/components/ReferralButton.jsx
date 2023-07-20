@@ -21,9 +21,6 @@ const ReferralButton = ({setReferrals}) => {
       return;
     }
 
-    
-    console.log('Submitted value:', inputValue);
-
     fetch(`${Urls.domain}/referrals`, {
       method: 'POST',
       headers: {

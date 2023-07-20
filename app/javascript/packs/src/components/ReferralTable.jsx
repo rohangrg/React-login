@@ -3,7 +3,6 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 
 const ReferralTable = ({updatedReferrals=[]}) => {
   const referrals = ((!!localStorage.getItem('userData') && updatedReferrals.length != 0) ? updatedReferrals : JSON.parse(localStorage.getItem('userData'))?.referrals) || [];
-  console.log(localStorage.getItem('userData'));
   return (
     <TableContainer component={Paper}>
       <Table>
