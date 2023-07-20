@@ -47,13 +47,13 @@ const LoginForm = ({setShowLogin}) => {
       }),
     })
     .then(response => {
-      const headers = response.headers;
+      // const headers = response.headers;
   
-      headers.forEach((value, name) => {
-        if (name == 'authorization') {
-          localStorage.setItem('authorization', value);
-        }
-      });
+      // headers.forEach((value, name) => {
+      //   if (name == 'authorization') {
+      //     localStorage.setItem('authorization', value);
+      //   }
+      // });
   
       return response.json();
     })
@@ -61,8 +61,7 @@ const LoginForm = ({setShowLogin}) => {
       if (data.error) {
         showAlertMessage(data);
       } else {
-        localStorage.setItem('userData', JSON.stringify(data.data?.user || ''));
-        location.reload();
+        handleLoginSignup();
       }
     })
     .catch(error => {
