@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
 import AlertMessage from './AlertMessage';
+import Urls from './../../constants';
 
 const ReferralButton = ({setReferrals}) => {
   const [inputValue, setInputValue] = useState('');
@@ -23,7 +24,7 @@ const ReferralButton = ({setReferrals}) => {
     
     console.log('Submitted value:', inputValue);
 
-    fetch('http://localhost:3000/referrals', {
+    fetch(`${Urls.domain}/referrals`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -41,7 +41,6 @@ class Users::SessionsController < Devise::SessionsController
       jwt_payload = JWT.decode(request.headers['Authorization'].split(' ').last, Rails.application.credentials.devise_jwt_secret_key!).first
       current_user = User.find(jwt_payload['sub'])
     end
-    
     if current_user
       reset_session
       render json: {

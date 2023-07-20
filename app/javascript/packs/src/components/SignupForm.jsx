@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextField, Typography, Container, Grid, Snackbar } from '@mui/material';
 import AlertMessage from './AlertMessage';
+import Urls from './../../constants';
 
 const LoginForm = ({setShowLogin}) => {
   const [email, setEmail] = useState('');
@@ -32,7 +33,7 @@ const LoginForm = ({setShowLogin}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:3000/signup', {
+    fetch(`${Urls.domain}/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

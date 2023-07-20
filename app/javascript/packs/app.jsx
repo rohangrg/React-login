@@ -4,9 +4,10 @@ import SignupForm from './src/components/SignupForm';
 import ReferralTable from './src/components/ReferralTable';
 import ReferralButton from './src/components/ReferralButton';
 import { Button } from '@mui/material';
+import Urls from './constants';
 
 function handleLogoutButton(setLogoutUser) {
-  fetch('http://localhost:3000/logout', {
+  fetch(`${Urls.domain}/logout`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -27,6 +28,9 @@ function handleLogoutButton(setLogoutUser) {
     .catch(error => {
       console.error('Error:', error);
     });
+
+    localStorage.clear();
+    setLogoutUser(true);
 }
 
 function App() {
